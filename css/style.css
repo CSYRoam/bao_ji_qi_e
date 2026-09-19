@@ -31,8 +31,9 @@ button { font-family: inherit; border: none; cursor: pointer; background: none; 
   max-width: 1120px; margin: 0 auto; height: 100%;
   display: flex; align-items: center; justify-content: space-between; padding: 0 12px;
 }
-.nav-brand { color: #ffe45e; font-size: 18px; font-weight: 900; letter-spacing: 2px; text-shadow: 0 0 8px rgba(255,210,60,.5); }
-.nav-menus { display: flex; gap: 10px; }
+/* 左右两侧等分剩余空间，使「关于作者」始终居于导航栏正中 */
+.nav-brand { flex: 1; color: #ffe45e; font-size: 18px; font-weight: 900; letter-spacing: 2px; text-shadow: 0 0 8px rgba(255,210,60,.5); }
+.nav-menus { flex: 1; display: flex; gap: 10px; justify-content: flex-end; }
 .nav-btn {
   display: flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 18px;
   background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25);
@@ -40,6 +41,11 @@ button { font-family: inherit; border: none; cursor: pointer; background: none; 
 }
 .nav-btn:active { transform: scale(.95); }
 .nav-coins { font-family: Consolas, monospace; color: #8ff4ff; font-size: 12px; }
+/* 导航「关于作者」的金色礼帽图标（呼应企鹅礼帽，比 emoji 可控且带高光） */
+.na-ico {
+  width: 18px; height: 18px; flex: none;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.55)) drop-shadow(0 0 5px rgba(255,210,60,.4));
+}
 .screen { position: absolute; inset: 0; display: none; flex-direction: column; }
 .screen.active { display: flex; }
 
@@ -445,6 +451,37 @@ button { font-family: inherit; border: none; cursor: pointer; background: none; 
   background: rgba(20,14,50,.8); color: #fff; font-size: 17px; font-weight: 700; letter-spacing: 2px;
 }
 .help-body p { color: #cfe8ff; font-size: 14.5px; line-height: 1.75; margin-bottom: 8px; }
+
+/* 关于作者弹框 */
+.about-panel { width: 74%; }
+.about-body { padding: 20px 18px 22px; text-align: center; }
+.about-avatar {
+  font-size: 46px; line-height: 1;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,.55));
+  animation: aboutFloat 2.8s ease-in-out infinite;
+}
+.about-name {
+  margin-top: 8px; color: #ffe45e; font-size: 25px; font-weight: 900; letter-spacing: 3px;
+  text-shadow: 0 0 14px rgba(255,210,60,.45);
+}
+.about-say { margin: 8px 0 16px; color: #cfe8ff; font-size: 13.5px; }
+.about-list { list-style: none; max-width: 330px; margin: 0 auto 18px; text-align: left; }
+.about-list li { display: flex; gap: 10px; padding: 7px 0; border-bottom: 1px dashed rgba(255,255,255,.16); }
+.about-list span { flex: none; width: 42px; color: #a99ce0; font-size: 12.5px; line-height: 1.5; }
+.about-list b { color: #fff; font-size: 13.5px; line-height: 1.5; }
+.about-toss {
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 22px;
+  background: linear-gradient(#ffd85e, #efa62a); border: 2px solid #a86c12;
+  color: #4a2c00; font-size: 15px; font-weight: 900; letter-spacing: 1px;
+  box-shadow: 0 4px 0 #8f5a0c, 0 8px 18px rgba(0,0,0,.45);
+}
+.about-toss:active { transform: translateY(3px); box-shadow: 0 1px 0 #8f5a0c; }
+.about-toss .coin-ico { width: 22px; height: 22px; }
+.about-tip { min-height: 20px; margin-top: 12px; color: #8ff4ff; font-size: 13px; }
+.about-tip.pop { animation: aboutPop .4s ease-out; }
+.about-note { margin-top: 10px; color: rgba(255,255,255,.45); font-size: 12px; }
+@keyframes aboutFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+@keyframes aboutPop { from { opacity: 0; transform: translateY(7px) scale(.96); } to { opacity: 1; transform: none; } }
 
 /* 恭喜获得（图9） */
 .popup-prize { background: rgba(20,14,50,.9); }
@@ -855,9 +892,15 @@ button { font-family: inherit; border: none; cursor: pointer; background: none; 
 @media (max-width: 600px) {
   #screen-main, #screen-guess, #popup-prize { width: min(calc(100% - 8px), calc((100dvh - 60px) * 556 / 540)); }
   .nav-inner { padding: 0 8px; }
-  .nav-brand { font-size: 15px; letter-spacing: 0; }
+  /* 移动端省掉品牌字，「关于作者」顶到最左充当导航起点 */
+  .nav-brand { display: none; }
   .nav-menus { gap: 5px; }
   .nav-btn { font-size: 12px; padding: 7px 9px; gap: 4px; }
+  .nav-about { order: -1; font-size: 11px; padding: 7px 6px; letter-spacing: 0; }
+  .nav-about .na-ico { width: 15px; height: 15px; }
+  .about-panel { width: 88%; }
+  .about-avatar { font-size: 38px; }
+  .about-name { font-size: 21px; letter-spacing: 1px; }
   .nav-coins { max-width: 17vw; overflow: hidden; text-overflow: ellipsis; font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
