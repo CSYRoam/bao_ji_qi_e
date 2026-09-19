@@ -586,6 +586,26 @@
     $('#popup-reward').classList.remove('hidden');
   }
 
+  /* ---------- 关于作者 ---------- */
+  const ABOUT_THANKS = [
+    '作者接住了，顺手塞进口袋。',
+    '企鹅替你鞠了一躬。',
+    '作者说：够意思，祝你猜球必中。',
+    '金币已入库，作者请你云喝奶茶。',
+  ];
+  let tossCount = 0;
+  function tossForAuthor() {
+    tossCount++;
+    Sound.coins();
+    const tip = $('#about-tip');
+    tip.textContent = tossCount >= 10
+      ? '……你居然扔了 ' + tossCount + ' 把。作者说够了，金币留着自己花。'
+      : ABOUT_THANKS[(tossCount - 1) % ABOUT_THANKS.length];
+    tip.classList.remove('pop');
+    void tip.offsetWidth; // 强制回流，保证同一句文案也能重播弹入动画
+    tip.classList.add('pop');
+  }
+
   /* ---------- 初始化 ---------- */
   function init() {
     $$('[data-table]').forEach((el) => { el.innerHTML = tableSVG(); });
@@ -599,12 +619,15 @@
       if (!act) return; // 空白点击统一由下方监听处理
       Sound.unlock();
       const a = act.getAttribute('data-act');
-      if (Sound.getPack() !== 'sample' || !['hit', 'pick', 'enter-guess', 's-test'].includes(a)) Sound.click();
+      if (Sound.getPack() !== 'sample' || !['hit', 'pick', 'enter-guess', 's-test', 'about-toss'].includes(a)) Sound.click();
       if (a === 'entry-close' || a === 'exit-main') show('#screen-entry');
       else if (a === 'enter-game') { show('#screen-main'); renderAll(); }
       else if (a === 'open-reward') openReward();
       else if (a === 'open-help') $('#popup-help').classList.remove('hidden');
       else if (a === 'close-help') $('#popup-help').classList.add('hidden');
+      else if (a === 'open-about') $('#popup-about').classList.remove('hidden');
+      else if (a === 'close-about') $('#popup-about').classList.add('hidden');
+      else if (a === 'about-toss') tossForAuthor();
       else if (a === 'claim') doClaim();
       else if (a === 'enter-guess') enterGuess();
       else if (a === 'exit-guess') { if (phase === 'lost') finishLose(); else if (phase === 'idle') show('#screen-main'); }
