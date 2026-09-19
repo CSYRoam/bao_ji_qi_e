@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 70">
+  <defs>
+    <linearGradient id="edge" x2="0" y2="1"><stop stop-color="#ffc72d"/><stop offset=".4" stop-color="#b76705"/><stop offset="1" stop-color="#ed9a08"/></linearGradient>
+    <linearGradient id="gold" x1=".15" y1="0" x2=".8" y2="1"><stop stop-color="#fff7b0"/><stop offset=".32" stop-color="#ffdc4b"/><stop offset=".64" stop-color="#efaa09"/><stop offset="1" stop-color="#ffd344"/></linearGradient>
+    <linearGradient id="rim" x2="0" y2="1"><stop stop-color="#fff9cf"/><stop offset=".5" stop-color="#ffd544"/><stop offset="1" stop-color="#b96b05"/></linearGradient>
+  </defs>
+  <ellipse cx="49" cy="58" rx="42" ry="8" fill="#102206" opacity=".27"/>
+  <path d="M4 30H92V39C92 54 72 65 48 65S4 54 4 39Z" fill="url(#edge)" stroke="#8e4d03" stroke-width="1.5"/>
+  <path d="M10 43V51M17 48V56M25 51V60M34 54V62M44 55V64M54 55V64M64 53V62M74 50V58M83 45V53M89 40V47" fill="none" stroke="#8d4d03" stroke-width="2"/>
+  <path d="M12 44V52M19 49V57M27 52V60M36 55V62M46 56V64M56 55V63M66 54V61M76 50V57M85 44V51" fill="none" stroke="#ffda51" stroke-width="1"/>
+  <ellipse cx="48" cy="30" rx="44" ry="27" fill="url(#rim)" stroke="#a96806" stroke-width="1.6"/>
+  <ellipse cx="48" cy="29" rx="38" ry="22" fill="url(#gold)" stroke="#fff1a0" stroke-width="1.5"/>
+  <ellipse cx="48" cy="29" rx="33" ry="18" fill="none" stroke="#b87b07" stroke-width="1.2"/>
+  <path d="M14 25C18 14 35 7 51 8" fill="none" stroke="#fffbd4" stroke-width="2.5" stroke-linecap="round"/>
+  <g transform="translate(0 1) scale(1 .78)" fill="#ae6905" stroke="#ffe57a" stroke-width=".7" fill-rule="evenodd">
+    <path d="M48 16C34 16 31 29 40 34C29 39 33 55 48 55S67 39 56 34C65 29 62 16 48 16ZM48 22C55 22 57 30 48 31C39 30 41 22 48 22ZM48 38C59 38 58 49 48 49S37 38 48 38Z"/>
+  </g>
+  <path d="M75 15L77 20L82 22L77 23L75 28L74 23L69 22L74 20Z" fill="#fff8be" opacity=".85"/>
+</svg>

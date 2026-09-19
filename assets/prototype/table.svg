@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 528 194">
+  <defs>
+    <linearGradient id="silver"><stop stop-color="#727c86"/><stop offset=".12" stop-color="#f0f3f2"/><stop offset=".3" stop-color="#acb7bc"/><stop offset=".48" stop-color="#f6f5ed"/><stop offset=".72" stop-color="#a2acb3"/><stop offset=".9" stop-color="#edf3f1"/><stop offset="1" stop-color="#657380"/></linearGradient>
+    <linearGradient id="apron" x2="0" y2="1"><stop stop-color="#51220e"/><stop offset=".14" stop-color="#c57931"/><stop offset=".24" stop-color="#713212"/><stop offset="1" stop-color="#9a471b"/></linearGradient>
+    <radialGradient id="felt" cx=".48" cy=".4" r=".7"><stop stop-color="#4b9d35"/><stop offset=".42" stop-color="#277b32"/><stop offset="1" stop-color="#166130"/></radialGradient>
+    <linearGradient id="cushion" x2="0" y2="1"><stop stop-color="#659745"/><stop offset=".45" stop-color="#275b25"/><stop offset="1" stop-color="#163e20"/></linearGradient>
+    <linearGradient id="rail" x2="0" y2="1"><stop stop-color="#eeb769"/><stop offset=".25" stop-color="#835221"/><stop offset=".65" stop-color="#d99239"/><stop offset="1" stop-color="#743a16"/></linearGradient>
+    <pattern id="lights" width="16" height="8" patternUnits="userSpaceOnUse"><circle cx="8" cy="4" r="2.5" fill="#b75711"/><circle cx="8" cy="3.5" r="1.5" fill="#fff7ae"/></pattern>
+  </defs>
+  <path d="M6 140H522L516 182Q514 190 503 191H25Q14 190 12 182Z" fill="#05070b" opacity=".5"/>
+  <path d="M96 3H430Q439 3 444 12L524 131Q527 135 526 145L522 181Q521 189 511 189H17Q7 189 6 181L2 145Q1 135 6 129L84 13Q89 3 96 3Z" fill="url(#silver)" stroke="#758286" stroke-width="1.2"/>
+  <path d="M100 5H428L511 135H17Z" fill="url(#rail)" stroke="#f3dda3" stroke-width="1"/>
+  <path d="M104 11H423L497 129H32Z" fill="url(#cushion)" stroke="#213e20" stroke-width="1.5"/>
+  <path d="M109 15H420L490 127H38Z" fill="url(#felt)"/>
+  <path d="M109 15H420M38 127H490" fill="none" stroke="#7daf6b" stroke-width="1" opacity=".6"/>
+  <path d="M191 16L151 125M332 16L378 125" stroke="#fff" stroke-width=".6" opacity=".07"/>
+  <path d="M100 6H429L510 134H18Z" fill="none" stroke="#cf852c" stroke-width="4"/>
+  <path d="M100 6H429L510 134H18Z" fill="none" stroke="#fff1a0" stroke-width="2.5" stroke-dasharray="1 14" stroke-linecap="round"/>
+  <path d="M25 137H503V181Q503 189 495 189H33Q25 189 25 181Z" fill="url(#apron)" stroke="#593218" stroke-width="1.5"/>
+  <path d="M26 139H502" stroke="#ffc27a" stroke-width="1.6"/>
+  <path d="M3 141Q14 148 26 142V181Q26 187 33 189H17Q7 189 6 181Z" fill="url(#silver)"/>
+  <path d="M502 142Q514 148 526 141L522 181Q521 189 511 189H495Q502 187 502 181Z" fill="url(#silver)"/>
+  <g fill="#030708" stroke="#94a6a1" stroke-width="1.3"><ellipse cx="96" cy="13" rx="10" ry="8"/><ellipse cx="427" cy="13" rx="10" ry="8"/><ellipse cx="25" cy="128" rx="11" ry="10"/><ellipse cx="503" cy="128" rx="11" ry="10"/></g>
+  <path d="M38 133H490" stroke="#602d11" stroke-width="6"/>
+  <rect x="35" y="129" width="459" height="8" fill="url(#lights)"/>
+  <path d="M36 143H492" stroke="#df9c57" stroke-width=".8"/>
+</svg>

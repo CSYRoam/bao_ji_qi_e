@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>暴击企鹅</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="preload" as="image" href="assets/prototype/table.svg">
+</head>
+<body>
+<header id="navbar">
+  <div class="nav-inner">
+    <div class="nav-brand">🐧 暴击企鹅</div>
+    <nav class="nav-menus">
+      <button class="nav-btn" data-act="open-wallet">💰 钱包<span class="nav-coins" id="nav-coins"></span></button>
+      <button class="nav-btn" data-act="open-settings">⚙️ 设置</button>
+    </nav>
+  </div>
+</header>
+<div id="stage">
+
+  <!-- ============ 入口页（图1） ============ -->
+  <section id="screen-entry" class="screen screen-entry active">
+    <header class="entry-head">
+      <h1>休闲游戏</h1>
+      <button class="round-close" data-act="entry-close" aria-label="关闭">✕</button>
+    </header>
+    <div class="entry-body">
+      <button class="game-card" data-act="enter-game">
+        <div class="card-art">
+          <div class="card-penguin" data-penguin></div>
+          <div class="card-right">
+            <div class="ribbon">赢金币</div>
+            <div class="game-title">暴击企鹅</div>
+            <div class="open-badge">9级开放</div>
+          </div>
+        </div>
+      </button>
+      <div class="coming-soon">
+        <div class="cs-title">敬请期待</div>
+        <div class="cs-sub">更多好玩待开放</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 游戏主界面（图2/3/6） ============ -->
+  <section id="screen-main" class="screen screen-main">
+    <div class="spot spot-l"></div>
+    <div class="spot spot-r"></div>
+    <div class="top-ribbon">猜球，猜对桌面金币翻倍</div>
+
+    <div class="hits-row">
+      <div class="hits-label">击球次数：<b id="hits-text">0/20</b></div>
+      <button id="guess-btn" class="guess-btn locked" data-act="enter-guess">
+        <span class="gb-icon">?</span><span class="gb-text">猜球</span>
+      </button>
+    </div>
+    <div class="progress"><i id="progress-fill"></i></div>
+
+    <div class="table-area" id="table-area">
+      <div class="table-wrap" data-table></div>
+      <div class="penguin main-penguin" id="main-penguin" data-penguin></div>
+      <div class="cue-stick" id="cue-stick"></div>
+      <div class="cue-ball" id="cue-ball"></div>
+      <div id="coin-pile" class="coin-pile"></div>
+      <button class="float-btn reward-btn" data-act="open-reward" aria-label="奖励倍率表"><i class="fb-ico">🎁</i><span>奖励</span></button>
+      <button class="float-btn help-btn" data-act="open-help" aria-label="游戏帮助">?</button>
+      <div id="fx-layer" class="fx-layer"></div>
+    </div>
+
+    <div class="coin-bar">
+      <div class="coin-cell">
+        <span class="cc-label">当前<br>金币</span>
+        <i class="coin-ico"></i>
+        <b id="coins-text" class="led">0</b>
+      </div>
+      <div class="coin-cell">
+        <span class="cc-label">桌面<br>金币</span>
+        <i class="coin-ico"></i>
+        <b id="table-text" class="led">0</b>
+      </div>
+    </div>
+
+    <div class="bet-row">
+      <button class="arrow" id="bet-prev" data-act="bet-prev" aria-label="上一组下注金额">◀</button>
+      <div class="bet-chips" id="bet-chips"></div>
+      <button class="arrow" id="bet-next" data-act="bet-next" aria-label="下一组下注金额">▶</button>
+      <button class="claim-btn" data-act="claim">点击<br>领取</button>
+    </div>
+
+    <div class="hit-row">
+      <button class="hit-btn h-green" data-act="hit" data-n="1">
+        <span class="hb-ico"><i class="mini-ball mb-black"></i><i class="mini-ball mb-white"></i></span>击球1次
+      </button>
+      <button class="hit-btn h-pink" data-act="hit" data-n="10">
+        <span class="hb-ico"><i class="mini-ball mb-black"></i><i class="mini-star"></i></span>击球10次
+      </button>
+      <button class="hit-btn h-purple" data-act="hit" data-n="100">
+        <span class="hb-ico"><i class="mini-ball mb-black"></i><i class="mini-star"></i></span>击球100次
+      </button>
+    </div>
+    <button class="close-x" data-act="exit-main" aria-label="返回游戏入口">✕</button>
+  </section>
+
+  <!-- ============ 猜球页（图7/8/10） ============ -->
+  <section id="screen-guess" class="screen screen-guess">
+    <div class="spot spot-l"></div>
+    <div class="spot spot-r"></div>
+    <div id="guess-title" class="guess-title" aria-live="polite"></div>
+
+    <div class="guess-stage">
+      <div class="speech-bubble">猜对奖励翻倍<br>猜错奖励清空哦</div>
+      <div class="penguin guess-penguin" id="guess-penguin" data-penguin></div>
+      <div id="draw-slot" class="draw-slot" aria-live="polite"></div>
+      <button class="float-btn help-btn g-help" data-act="open-help" aria-label="猜球帮助">?</button>
+      <div class="guess-table">
+        <div class="table-wrap gt-wrap" data-table></div>
+        <button class="pick-btn pick-solid" data-act="pick" data-type="solid">全色球</button>
+        <button class="pick-btn pick-stripe" data-act="pick" data-type="stripe">花色球</button>
+      </div>
+    </div>
+
+    <div class="guess-plaques">
+      <div class="plaque"><b id="guess-hold" class="led-p">0</b><span>持有金币</span></div>
+      <div class="plaque"><b id="guess-bet" class="led-p">0</b><span>竞猜金币</span></div>
+    </div>
+    <div id="guess-hint" class="guess-hint"></div>
+    <button class="close-x" id="guess-close" data-act="exit-guess" aria-label="返回主界面">✕</button>
+  </section>
+
+  <!-- ============ 钱包页 ============ -->
+  <section id="screen-wallet" class="screen screen-panel">
+    <div class="panel-head">
+      <button class="back-btn" data-act="go-back">‹</button>
+      <h2>我的钱包</h2>
+      <span class="ph-spacer"></span>
+    </div>
+    <div class="wallet-card">
+      <div class="wc-label">当前余额（金币）</div>
+      <div class="wc-value led" id="w-balance">0</div>
+      <div class="wc-sub">桌面未领取：<b id="w-table">0</b></div>
+    </div>
+    <div class="panel-block">
+      <div class="pb-title">余额调整</div>
+      <div class="wo-row">
+        <input id="w-amount" class="num-input" type="number" min="0" step="100" value="1000">
+        <button class="wo-btn add" data-act="w-add">＋ 增加</button>
+        <button class="wo-btn sub" data-act="w-sub">－ 减少</button>
+      </div>
+      <div class="wo-chips">
+        <button data-act="w-quick" data-v="1000">+1千</button>
+        <button data-act="w-quick" data-v="5000">+5千</button>
+        <button data-act="w-quick" data-v="10000">+1万</button>
+        <button data-act="w-quick" data-v="-1000">-1千</button>
+        <button data-act="w-quick" data-v="-5000">-5千</button>
+        <button data-act="w-quick" data-v="-10000">-1万</button>
+      </div>
+      <div class="wo-row">
+        <input id="w-set" class="num-input" type="number" min="0" step="100" placeholder="输入目标余额">
+        <button class="wo-btn set" data-act="w-set">设置为该余额</button>
+      </div>
+    </div>
+    <div class="panel-block">
+      <div class="pb-title">游戏统计</div>
+      <div class="w-stats" id="w-stats"></div>
+    </div>
+    <div class="panel-block">
+      <div class="pb-title">金币流水</div>
+      <ul class="w-log" id="w-log"></ul>
+    </div>
+    <button class="danger-btn" data-act="w-reset">重置账户（余额与统计归零）</button>
+  </section>
+
+  <!-- ============ 设置页 ============ -->
+  <section id="screen-settings" class="screen screen-panel">
+    <div class="panel-head">
+      <button class="back-btn" data-act="go-back">‹</button>
+      <h2>设置</h2>
+      <span class="ph-spacer"></span>
+    </div>
+    <div class="panel-block">
+      <div class="pb-title">猜球胜率<b id="s-chance-val" class="pb-val">50%</b></div>
+      <input id="s-chance" class="range" type="range" min="0" max="100" step="5" value="50">
+      <div class="set-presets">
+        <button data-act="s-chance" data-v="30">30%</button>
+        <button data-act="s-chance" data-v="50">50%</button>
+        <button data-act="s-chance" data-v="70">70%</button>
+        <button data-act="s-chance" data-v="100">100%</button>
+      </div>
+      <p class="set-note">玩家猜球获胜的概率（默认50%），调高则更容易翻倍桌面金币。</p>
+    </div>
+    <div class="panel-block">
+      <div class="pb-title">掏球动画时长<b id="s-draw-val" class="pb-val">3s</b></div>
+      <input id="s-draw" class="range" type="range" min="1" max="6" step="0.5" value="3">
+    </div>
+    <div class="panel-block">
+      <div class="pb-title">音效包</div>
+      <div class="set-presets">
+        <button data-act="s-pack" data-p="synth" id="pk-synth">音效1 · 合成</button>
+        <button data-act="s-pack" data-p="sample" id="pk-sample">音效2 · 游戏原声</button>
+      </div>
+      <div class="set-presets">
+        <button data-act="s-test" data-s="hit">试听击球</button>
+        <button data-act="s-test" data-s="jingle">试听解锁</button>
+        <button data-act="s-test" data-s="suspense">试听掏球</button>
+        <button data-act="s-test" data-s="win">试听猜对</button>
+        <button data-act="s-test" data-s="lose">试听猜错</button>
+      </div>
+    </div>
+    <div class="panel-block">
+      <div class="pb-title">音效开关</div>
+      <div class="set-row">
+        <span>音效开关</span>
+        <label class="switch"><input id="s-on" type="checkbox" checked><i></i></label>
+      </div>
+      <div class="set-row"><span>音量<b id="s-vol-val" class="pb-val">80%</b></span></div>
+      <input id="s-vol" class="range" type="range" min="0" max="100" step="5" value="80">
+    </div>
+    <div class="panel-block">
+      <div class="pb-title">数据</div>
+      <button class="danger-btn" data-act="s-wipe">清空全部存档并重启</button>
+    </div>
+  </section>
+
+  <!-- ============ 奖励弹框（图4） ============ -->
+  <div id="popup-reward" class="popup hidden">
+    <div class="popup-panel reward-panel">
+      <div class="popup-head"><h2>奖励</h2></div>
+      <div class="reward-grid" id="reward-grid"></div>
+    </div>
+    <div class="popup-tip">点击空白处关闭</div>
+  </div>
+
+  <!-- ============ 帮助弹框（图5） ============ -->
+  <div id="popup-help" class="popup hidden">
+    <div class="popup-panel help-panel">
+      <div class="popup-head with-close">
+        <h2>帮助</h2>
+        <button class="round-close" data-act="close-help">✕</button>
+      </div>
+      <div class="help-body">
+        <div class="help-tag">暴击企鹅</div>
+        <p>1、点击击球后，花费金币进行一次暴击企鹅。花费金币数量3档自选：100、500、1000，默认100。</p>
+        <p>2、企鹅摔落不同花色台球，并算为不同数量金币。金币保留在桌面上，随时可以领取。</p>
+        <p>3、进行20次暴击企鹅，可获得一次猜球机会。可继续暴击企鹅，也可进入猜球模式。</p>
+        <p>4、猜球模式默认50%概率将桌面奖金翻倍，概率可在顶部“设置”中调整。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 恭喜获得弹框（图9） ============ -->
+  <div id="popup-prize" class="popup popup-prize hidden">
+    <div class="prize-rays"></div>
+    <div class="prize-banner">
+      <i class="pz-star s1">★</i><i class="pz-star s2">★</i><i class="pz-star s3">★</i><i class="pz-star s4">★</i>
+      <div class="pz-ribbon">恭喜获得</div>
+    </div>
+    <div class="prize-box">
+      <i class="coin-ico big"></i>
+      <b id="prize-amount">×0</b>
+    </div>
+    <div class="prize-label">金币</div>
+    <div class="popup-tip bottom">点击空白处关闭</div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
