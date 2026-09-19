@@ -11,6 +11,7 @@
 <header id="navbar">
   <div class="nav-inner">
     <div class="nav-brand">🐧 暴击企鹅</div>
+    <button class="nav-btn nav-about" data-act="open-about" aria-label="关于作者"><svg class="na-ico" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="naHatGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff3b0"/><stop offset=".55" stop-color="#ffd24d"/><stop offset="1" stop-color="#e08c12"/></linearGradient></defs><path d="M7.6 2.6h8.8v11.8H7.6z" fill="url(#naHatGold)"/><path d="M7.6 2.6h8.8v3.1H7.6z" fill="#fffbe0" opacity=".5"/><rect x="6.9" y="11.3" width="10.2" height="3.1" fill="#8f5a0c"/><ellipse cx="12" cy="17.4" rx="9.4" ry="3" fill="url(#naHatGold)"/><ellipse cx="12" cy="16.7" rx="9.4" ry="2.4" fill="#ffe98a" opacity=".75"/></svg><span>关于作者</span></button>
     <nav class="nav-menus">
       <button class="nav-btn" data-act="open-wallet">💰 钱包<span class="nav-coins" id="nav-coins"></span></button>
       <button class="nav-btn" data-act="open-settings">⚙️ 设置</button>
@@ -246,6 +247,31 @@
         <p>4、猜球模式默认50%概率将桌面奖金翻倍，概率可在顶部“设置”中调整。</p>
       </div>
     </div>
+  </div>
+
+  <!-- ============ 关于作者弹框 ============ -->
+  <div id="popup-about" class="popup hidden">
+    <div class="popup-panel about-panel">
+      <div class="popup-head with-close">
+        <h2>关于作者</h2>
+        <button class="round-close" data-act="close-about" aria-label="关闭关于作者">✕</button>
+      </div>
+      <div class="about-body">
+        <div class="about-avatar">🐧</div>
+        <div class="about-name">流浪你飘了</div>
+        <div class="about-say">把赌场搬进企鹅肚子，把金币摔成一台提款机。</div>
+        <ul class="about-list">
+          <li><span>作品</span><b>暴击企鹅 · 猜球休闲小游戏</b></li>
+          <li><span>说明</span><b>适度游戏益脑，沉迷游戏伤身。</b></li>
+          <li><span>存档</span><b>存在你自己浏览器本地，各玩各的</b></li>
+          <li><span>音效</span><b>实时合成 + 游戏原声，两套可切</b></li>
+        </ul>
+        <button class="about-toss" data-act="about-toss"><i class="coin-ico"></i>给作者扔一把金币</button>
+        <div class="about-tip" id="about-tip"></div>
+        <div class="about-note">想改胜率去顶部「设置」，金币记得随时「领取」。</div>
+      </div>
+    </div>
+    <div class="popup-tip">点击空白处关闭</div>
   </div>
 
   <!-- ============ 恭喜获得弹框（图9） ============ -->
