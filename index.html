@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>暴击企鹅</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23101618'/%3E%3Ccircle cx='32' cy='32' r='16' fill='white'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial' font-size='30' font-weight='bold'%3E8%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css?v=2">
+<link rel="stylesheet" href="css/billiards.css?v=5">
 <link rel="preload" as="image" href="assets/prototype/table.svg">
 </head>
 <body>
@@ -37,9 +39,59 @@
           </div>
         </div>
       </button>
-      <div class="coming-soon">
-        <div class="cs-title">敬请期待</div>
-        <div class="cs-sub">更多好玩待开放</div>
+      <button class="billiards-card" data-act="enter-billiards" aria-label="进入经典八球">
+        <span class="bc-table"><i class="bc-pocket p1"></i><i class="bc-pocket p2"></i><i class="bc-pocket p3"></i><i class="bc-pocket p4"></i><span class="bc-ball bc-eight">8</span><span class="bc-ball bc-yellow">1</span><span class="bc-ball bc-blue">2</span><span class="bc-cue"></span></span>
+        <span class="bc-copy"><span class="bc-tag">自由练习</span><strong>经典八球</strong><span class="bc-sub">瞄准 · 蓄力 · 一杆入袋</span><span class="bc-start">点击开始 <b>›</b></span></span>
+      </button>
+    </div>
+  </section>
+
+  <section id="screen-billiards" class="screen screen-billiards" aria-label="经典八球练习">
+    <div id="billiards-scene" class="billiards-scene">
+      <div class="pool-announcement"><span aria-hidden="true">◀))</span><span id="pool-status" role="status">经典八球 · 自由练习，尽享一杆清台</span></div>
+      <div class="pool-toolbar">
+        <button class="pool-mode" data-pool="pause" title="菜单 / 返回大厅">8球练习</button>
+        <div class="pool-actions">
+          <button data-pool="move" aria-pressed="false">挪球<i></i></button>
+          <button data-pool="grid" aria-disabled="true" title="网格功能待开放">网格<i></i></button>
+          <button data-pool="table" aria-disabled="true" title="球桌切换待开放">球桌</button>
+          <button class="pool-reset" data-pool="reset">重置</button>
+        </div>
+      </div>
+      <img class="pool-table-art" src="assets/billiards/table.png?v=3" alt="" draggable="false">
+      <canvas id="billiards-canvas" width="900" height="2000" tabindex="0" aria-label="球桌：拖动瞄准，右侧向下拉杆击球；方向键微调，空格蓄力并松开击球"></canvas>
+      <div class="pool-side">
+        <time id="pool-clock">00:00</time>
+        <div class="pool-pill pool-system">
+          <button class="pool-pause" data-pool="pause" aria-label="暂停游戏"><span></span><span></span></button>
+          <button class="pool-rotate" data-pool="rotate" aria-label="旋转球桌"><img src="assets/billiards/rotate.png" alt=""></button>
+        </div>
+        <div class="pool-pill pool-tools">
+          <button data-pool="assist" aria-label="辅助线" aria-pressed="false"><img src="assets/billiards/assist.png" alt="辅助线"></button>
+          <button data-pool="undo" aria-label="悔球"><img src="assets/billiards/undo.png" alt="悔球"><span id="pool-undo-count">999</span></button>
+        </div>
+        <button class="pool-spin" data-pool="spin" aria-label="调整击球点"><span id="pool-spin-angle">0°</span><img src="assets/billiards/spin.png" alt=""><i id="pool-spin-dot"></i></button>
+        <div id="pool-power" class="pool-power" role="slider" tabindex="0" aria-label="向下拖动蓄力，松开击球；最大力度800" aria-valuemin="0" aria-valuemax="800" aria-valuenow="800"><div id="pool-power-fill"></div><span id="pool-power-number">800</span><i></i></div>
+        <button class="pool-cues" data-pool="cues" aria-label="查看球杆"><img src="assets/billiards/cues.png" alt="球杆"></button>
+      </div>
+      <div id="pool-fine" class="pool-fine" role="slider" tabindex="0" aria-label="左右拖动微调瞄准角度" aria-valuemin="-180" aria-valuemax="180" aria-valuenow="-90"></div>
+      <div id="pool-aim-note" class="pool-aim-note hidden"></div>
+      <aside id="pool-helper" class="pool-helper" aria-label="台球助手">
+        <button id="pool-helper-handle" class="pool-helper-handle" aria-expanded="false" aria-controls="pool-helper-body" title="点击展开或收起，拖动可移动"><span class="pool-helper-dot"></span>台球助手<span id="pool-helper-arrow">＋</span></button>
+        <div id="pool-helper-body" class="pool-helper-body hidden">
+          <p>拖动标题移动 · 点击标题收起</p>
+          <label><span>单球预测<small id="pool-helper-target-note">目标球路线、目标球与母球落点</small></span><input id="pool-helper-target" type="checkbox" role="switch"></label>
+          <label><span>母球多库预测<small>解除四库限制，显示最终落点</small></span><input id="pool-helper-multi" type="checkbox" role="switch"></label>
+          <label><span>全桌精准预测<small>各球完整路径、停点与进袋</small></span><input id="pool-helper-positions" type="checkbox" role="switch"></label>
+          <button data-pool="helper-off">关闭全部预测</button>
+        </div>
+      </aside>
+      <div id="pool-toast" class="pool-toast" role="status"></div>
+      <div id="pool-modal" class="pool-modal hidden">
+        <div class="pool-dialog" role="dialog" aria-modal="true" aria-labelledby="pool-dialog-title">
+          <h2 id="pool-dialog-title">暂停</h2>
+          <div id="pool-dialog-body"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -180,6 +232,11 @@
       <span class="ph-spacer"></span>
     </div>
     <div class="panel-block">
+      <div class="pb-title">经典八球 · 微调尺灵敏度<b id="s-pool-fine-val" class="pb-val">20</b></div>
+      <input id="s-pool-fine" class="range" type="range" min="1" max="100" step="1" value="20" aria-label="经典八球微调尺灵敏度">
+      <p class="set-note">数值越小，微调越精细，默认20。滑尺刻度声跟随音效开关。</p>
+    </div>
+    <div class="panel-block">
       <div class="pb-title">猜球胜率<b id="s-chance-val" class="pb-val">50%</b></div>
       <input id="s-chance" class="range" type="range" min="0" max="100" step="5" value="50">
       <div class="set-presets">
@@ -294,6 +351,9 @@
 
 <script src="js/config.js?v=2"></script>
 <script src="js/sound.js?v=2"></script>
+<script src="js/billiards-physics.js?v=6"></script>
+<script src="js/billiards-audio-data.js?v=1"></script>
+<script src="js/billiards.js?v=6"></script>
 <script src="js/game.js?v=2"></script>
 </body>
 </html>
