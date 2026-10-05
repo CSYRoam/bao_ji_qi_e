@@ -287,8 +287,11 @@
 
   /* ---------- 屏幕切换 ---------- */
   function show(id) {
+    if (window.Billiards) window.Billiards.setActive(id === '#screen-billiards');
+    document.body.classList.toggle('billiards-active', id === '#screen-billiards');
     $$('.screen').forEach((s) => s.classList.remove('active'));
     $(id).classList.add('active');
+    document.dispatchEvent(new CustomEvent('game-screen-change', { detail: id }));
     // 主界面、猜球和结果共用同一尺寸，不再切换录屏覆盖层。
   }
 
@@ -622,6 +625,8 @@
       if (Sound.getPack() !== 'sample' || !['hit', 'pick', 'enter-guess', 's-test', 'about-toss'].includes(a)) Sound.click();
       if (a === 'entry-close' || a === 'exit-main') show('#screen-entry');
       else if (a === 'enter-game') { show('#screen-main'); renderAll(); }
+      else if (a === 'enter-billiards') { show('#screen-billiards'); }
+      else if (a === 'exit-billiards') { show('#screen-entry'); }
       else if (a === 'open-reward') openReward();
       else if (a === 'open-help') $('#popup-help').classList.remove('hidden');
       else if (a === 'close-help') $('#popup-help').classList.add('hidden');
@@ -679,6 +684,7 @@
     Sound.setOn(S.sound.on);
     Sound.setPack(S.sound.pack);
 
+    syncSettings();
     renderAll();
   }
   init();
